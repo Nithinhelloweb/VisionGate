@@ -1443,3 +1443,5 @@ def _send_requester_outcome_email(
         print(f"[staff_leave_service] Requester outcome email failed (non-fatal): {exc}")
 
 # Leave balance calculator
+
+# Leave overlap detection
