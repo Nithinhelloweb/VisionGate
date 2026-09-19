@@ -5,3 +5,5 @@ router = APIRouter()
 
 # TODO: Implement HOD endpoints from main.py
 # GET /hod/pending-leaves endpoint
+
+# GET /hod/department-calendar endpoint
