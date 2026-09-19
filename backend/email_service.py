@@ -371,3 +371,5 @@ def notify_requester_final_outcome(
     )
 
 # Leave status email templates
+
+# Daily digest for HOD pending approvals
