@@ -1,0 +1,173 @@
+System Configuration
+OS: Ubuntu 24.04.4 LTS (noble)
+Kernel: Linux 7.0.0-28-generic
+Architecture: x86_64
+Hostname: TECHPARK2
+Machine: Alienware Aurora ACT1250
+Firmware: 1.11.0 (dated 2025-11-27)
+User / Workspace
+User: techpark-2
+Groups: adm, cdrom, sudo, dip, plugdev, users, lpadmin, ollama, docker
+Current workspace: attenda
+Storage
+Filesystem: nvme0n1p2
+Size: 937G
+Used: 659G
+Available: 231G
+Usage: 75%
+Memory
+Total: 31Gi
+Used: 18Gi
+Free: 1.5Gi
+Buff/cache: 11Gi
+Swap: 8.0Gi (mostly unused)
+Runtime Tools
+Python: Python 3.12.3 at python3
+Node: v18.19.1 at node
+Java compiler: not installed (javac not found)
+
+Detailed System Hardware Summary
+Host / Chassis
+Hostname: TECHPARK2
+Pretty hostname: TECHPARK_2
+Chassis: desktop
+Manufacturer: Alienware
+Product Name: Alienware Aurora ACT1250
+Serial Number: BRD3JB4
+UUID: 4c4c4544-0052-4410-8033-c2c04f4a4234
+SKU: 0CD7
+Firmware / BIOS
+Vendor: Alienware
+Version: 1.11.0
+Release Date: 11/27/2025
+ROM Size: 64 MB
+Firmware Revision: 1.4
+UEFI support: yes
+CPU
+Model: Intel(R) Core(TM) Ultra 9 285K
+Architecture: x86_64
+Sockets: 1
+Physical cores: 24
+Threads: 24
+Max MHz: 6500.0000
+Min MHz: 800.0000
+L1d cache total: 768 KiB
+L1i cache total: 1.3 MiB
+L2 cache total: 40 MiB
+L3 cache total: 36 MiB
+Virtualization: VT-x
+Supported features include: AVX2, AES, SHA_NI, FMA, SMX, VMX, TSX, HWP, MCE, SMEP, SMAP, RDRAND, RDSEED, and many more.
+Memory
+Total RAM: 31Gi
+Used: 18Gi
+Free: 1.4Gi
+Buff/cache: 11Gi
+Swap: 8.0Gi
+Storage
+NVMe device: nvme0n1
+Size: 953.9G
+Model: PVC10 SK hynix 1024GB
+Partitions:
+nvme0n1p1 — 1G mounted at efi
+nvme0n1p2 — 952.8G mounted at /
+PCI Devices
+00:00.0 Host bridge: Intel
+00:04.0 Signal processing controller: Intel
+00:06.0 PCI bridge: Intel
+00:07.0 Thunderbolt 4 PCIe root port: Intel
+00:08.0 System peripheral: Intel
+00:0a.0 Signal processing controller: Intel
+00:0b.0 Processing accelerators: Intel Arrow Lake NPU
+00:0d.0 USB controller: Intel Thunderbolt 4
+00:0d.2 USB controller: Intel Thunderbolt 4 NHI
+00:14.0 RAM memory: Intel
+00:1f.0 ISA bridge: Intel
+00:1f.5 Serial bus controller: Intel
+01:00.0 VGA compatible controller: NVIDIA (10de:2f04)
+01:00.1 Audio device: NVIDIA
+80:14.0 USB controller: Intel
+80:14.5 Non-VGA unclassified device: Intel
+80:16.0 Communication controller: Intel
+80:17.0 SATA controller: Intel
+80:1b.0 PCI bridge: Intel
+80:1c.0 PCI bridge: Intel
+80:1c.2 PCI bridge: Intel
+80:1f.0 ISA bridge: Intel
+80:1f.3 Audio device: Intel
+80:1f.4 SMBus: Intel
+80:1f.5 Serial bus controller: Intel
+81:00.0 NVMe controller: SK hynix
+82:00.0 Wi-Fi controller: Intel Wi-Fi 7 AX1775/AX1790/BE20/BE401/BE1750
+83:00.0 Ethernet controller: Realtek Killer E3000 2.5GbE
+USB Devices
+Bus 001 Device 001: Linux Foundation 2.0 root hub
+Bus 002 Device 001: Linux Foundation 3.0 root hub
+Bus 003 Device 001: Linux Foundation 2.0 root hub
+Bus 003 Device 002: SiGma Micro HP Wired Keyboard
+Bus 003 Device 003: Instant USB Optical Mouse
+Bus 003 Device 004: Alienware Corporation LED controller
+Bus 003 Device 005: Intel Corp. device
+Bus 004 Device 001: Linux Foundation 3.0 root hub
+Graphics
+Display controller: NVIDIA Corporation
+Driver: nvidia
+Resolution: 1920x1080
+Mode: 1920x1080
+Depth: 32
+Capabilities: pm msi pciexpress msix vga_controller bus_master cap_list rom fb
+Network
+Wi-Fi: Intel Wi-Fi 7(802.11be) AX1775*/AX1790*/BE20*/BE401/BE1750* 2x2
+Interface: wlp130s0f0
+MAC: 28:0c:50:fa:5f:91
+Driver: iwlwifi
+Firmware: 101.6e695a70.0
+IP: 10.20.25.66
+Ethernet: Realtek Killer E3000 2.5GbE Controller
+Interface: enp131s0
+MAC: e8:cf:83:95:9f:fa
+Driver: r8169
+Speed: 1Gbit/s
+IP: 192.168.76.12
+Thermal / Sensor Readings
+CPU Package: +51.0°C
+Core temps: range +44.0°C to +52.0°C
+NVMe temp: +31.9°C
+System fans:
+CPU fan: 2004 RPM
+Chassis fans: 673, 786, 827, 815 RPM
+Additional temps:
+Ambient: +47.0°C
+Memory: +32.0°C
+
+Graphics Card Details
+GPU Model
+NVIDIA GeForce RTX 5070
+PCI Information
+PCI ID: 10de:2f04
+Bus ID: 00000000:01:00.0
+Subsystem: Dell Device [1028:5320]
+Kernel driver in use: nvidia
+Kernel modules available: nvidiafb, nouveau, nvidia_drm, nvidia
+Driver / NVIDIA Software
+NVIDIA-SMI version: 595.84
+Driver version: 595.84
+CUDA version: 13.2
+Video Memory
+Total dedicated GPU memory: 12227 MB
+Currently used: 2454 MiB
+Currently available: 9300 MB
+Current GPU State
+Temperature: 45°C
+Power draw: 28W / 250W
+Utilization: 3%
+Performance state: P1
+Display active: yes
+OpenGL / GLX
+Vendor: NVIDIA Corporation
+Renderer: NVIDIA GeForce RTX 5070/PCIe/SSE2
+OpenGL Version: 4.6.0 NVIDIA 595.84
+GLSL Version: 4.60 NVIDIA
+OpenGL ES Version: 3.2 NVIDIA 595.84
+Direct rendering: Yes
+Audio Device
+NVIDIA audio controller on same card: PCI ID 10de:2f80

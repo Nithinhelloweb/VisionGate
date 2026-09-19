@@ -1,0 +1,86 @@
+name: vision_gate
+description: "VisionGate - Automated Face Attendance System with Live Camera"
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 📷 Live camera preview & frame capture
+  camera: ^0.10.6
+  camera_windows: ^0.2.6
+
+  # 🌐 API communication
+  http: ^1.2.0
+
+  # 📶 Wi-Fi BSSID (Geofencing)
+  network_info_plus: ^5.0.0
+
+  # 🔌 Check connectivity (WiFi/mobile)
+  connectivity_plus: ^6.1.0
+  # 🔐 Runtime permissions (Camera, Location)
+  permission_handler: ^11.4.0
+  flutter_local_notifications: ^17.2.4
+  file_picker: ^8.3.7
+  # Geolocation for geofencing
+  geolocator: ^10.1.1
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+
+  # 🖼️ Image processing for face recognition
+  image: ^4.5.4
+  google_mlkit_face_detection: ^0.12.0
+
+  # 📊 Image quality analysis
+  image_picker: ^1.2.3
+
+  # 💾 Persistent session storage
+  shared_preferences: ^2.5.5
+
+  # 🔄 Background service for location tracking
+  flutter_background_service: ^5.0.10
+
+  # 📄 PDF generation and printing
+  pdf: ^3.12.0
+  printing: ^5.14.3
+
+  cupertino_icons: ^1.0.9
+  flutter_map_dragmarker: ^7.0.0
+
+  # 📊 Charts for attendance pie charts on dashboards
+  fl_chart: ^0.69.2
+
+  # 🔤 Google Fonts for modern typography
+  google_fonts: ^6.3.3
+  intl: ^0.20.3
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+  flutter_launcher_icons: ^0.14.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/icon.png"
+  remove_alpha_ios: true
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/icon.png
+    - assets/images/logo.png
+    - assets/thirukkural.json

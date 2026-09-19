@@ -1,0 +1,128 @@
+# ==============================================================================
+# VisionGate / Attenda - Docker Compose Production Stack
+# Optimized for Ubuntu 24.04 LTS + NVIDIA GeForce RTX 5070 GPU (sm_120)
+# Supports Cloudflare DNS Proxy & Cloudflare Zero-Trust Tunnel
+# ==============================================================================
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: attenda-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PG_DB:-attenda}
+      POSTGRES_USER: ${PG_USER:-attenda}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-attenda_password}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/01-init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    ports:
+      - "${PG_HOST_PORT:-5434}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-attenda} -d ${PG_DB:-attenda}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - attenda-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: attenda-backend:latest
+    container_name: attenda-backend
+    restart: unless-stopped
+    environment:
+      PG_HOST: postgres
+      PG_PORT: "5432"
+      PG_USER: ${PG_USER:-attenda}
+      PG_PASSWORD: ${PG_PASSWORD:-attenda_password}
+      PG_DB: ${PG_DB:-attenda}
+      PORT: "8001"
+      PYTHONUNBUFFERED: "1"
+      PYTHONIOENCODING: "utf-8"
+      # Hardware GPU passthrough
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES:-all}
+      NVIDIA_DRIVER_CAPABILITIES: ${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ./backend:/app
+      - attenda_storage:/app/storage
+      - ./backend/debug_images:/app/debug_images
+      - insightface_models:/root/.insightface
+    ports:
+      - "${BACKEND_PORT:-8001}:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8001/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 180s
+    networks:
+      - attenda-network
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: attenda-nginx
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/healthz || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - attenda-network
+
+  # Cloudflare Tunnel Service (Zero-Trust & Quick Tunnels)
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: attenda-cloudflared
+    restart: unless-stopped
+    command:
+      - tunnel
+      - --config
+      - /etc/cloudflared/config.yml
+      - run
+      - 27b90fd6-f11b-4f35-b160-47bcc2e2ed9e
+    volumes:
+      - ./docker/cloudflared:/etc/cloudflared:ro
+    depends_on:
+      nginx:
+        condition: service_healthy
+    networks:
+      - attenda-network
+    profiles:
+      - tunnel
+
+networks:
+  attenda-network:
+    name: attenda-network
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: attenda_postgres_data
+  attenda_storage:
+    name: attenda_storage
+  insightface_models:
+    name: attenda_insightface_models
