@@ -634,3 +634,5 @@ async def admin_get_audit_log(request: Request, request_id: int):
 # PATCH /leave/:id/approve endpoint
 
 # PATCH /leave/:id/reject with reason
+
+# DELETE /leave/:id cancel endpoint
