@@ -200,3 +200,5 @@ def extract_embeddings_from_base64_images(
 # Re-enrollment duplicate validation
 
 # Embedding version field
+
+# Bulk face enrollment via multipart upload
