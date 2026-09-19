@@ -198,3 +198,5 @@ def extract_embeddings_from_base64_images(
     return results
 
 # Re-enrollment duplicate validation
+
+# Embedding version field
