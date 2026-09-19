@@ -463,3 +463,5 @@ def _get_candidates(reg_no: str):
 # Cosine similarity threshold tuned to 0.55
 
 # EXIF orientation fix before encoding
+
+# Frame blur detection
