@@ -630,3 +630,5 @@ async def admin_get_audit_log(request: Request, request_id: int):
 # GET /leave/my-requests endpoint
 
 # GET /leave/my-requests endpoint
+
+# PATCH /leave/:id/approve endpoint
