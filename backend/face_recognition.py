@@ -461,3 +461,5 @@ def _get_candidates(reg_no: str):
 # Minimum face size filter
 
 # Cosine similarity threshold tuned to 0.55
+
+# EXIF orientation fix before encoding
