@@ -298,3 +298,5 @@ def update_reminder_preferences(
     return updated
 
 # POST /schedule/timetable endpoint
+
+# GET /schedule/my-timetable endpoint
