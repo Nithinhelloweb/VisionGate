@@ -465,3 +465,5 @@ def _get_candidates(reg_no: str):
 # EXIF orientation fix before encoding
 
 # Frame blur detection
+
+# Facial landmark alignment before encoding
