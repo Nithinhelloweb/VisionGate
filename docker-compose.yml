@@ -126,3 +126,5 @@ volumes:
     name: attenda_storage
   insightface_models:
     name: attenda_insightface_models
+
+# Healthcheck added to backend service
