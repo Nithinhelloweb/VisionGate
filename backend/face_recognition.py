@@ -459,3 +459,5 @@ def _get_candidates(reg_no: str):
 # Multi-face detection guard
 
 # Minimum face size filter
+
+# Cosine similarity threshold tuned to 0.55
