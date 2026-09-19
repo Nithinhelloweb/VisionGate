@@ -1,0 +1,2 @@
+
+-- daily aggregation view added
