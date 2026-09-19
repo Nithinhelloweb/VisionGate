@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    // Anti-Spoofing: Freeze navigator.geolocation to prevent web console coordinate tampering
+    (function() {
+      if (navigator.geolocation) {
+        try {
+          const originalGetCurrentPosition = navigator.geolocation.getCurrentPosition;
+          const originalWatchPosition = navigator.geolocation.watchPosition;
+
+          // Define secure getCurrentPosition on Geolocation prototype
+          Object.defineProperty(Geolocation.prototype, 'getCurrentPosition', {
+            value: function(successCallback, errorCallback, options) {
+              const secureSuccess = function(position) {
+                // Perform checks for basic mocked parameters (if any)
+                if (position.mocked || (position.coords && position.coords.accuracy === 0)) {
+                  if (errorCallback) {
+                    errorCallback({
+                      code: 3,
+                      message: "Location spoofing detected."
+                    });
+                    return;
+                  }
+                }
+                successCallback(position);
+              };
+              originalGetCurrentPosition.call(navigator.geolocation, secureSuccess, errorCallback, options);
+            },
+            writable: false,
+            configurable: false
+          });
+
+          // Define secure watchPosition on Geolocation prototype
+          Object.defineProperty(Geolocation.prototype, 'watchPosition', {
+            value: function(successCallback, errorCallback, options) {
+              const secureSuccess = function(position) {
+                if (position.mocked || (position.coords && position.coords.accuracy === 0)) {
+                  if (errorCallback) {
+                    errorCallback({
+                      code: 3,
+                      message: "Location spoofing detected."
+                    });
+                    return;
+                  }
+                }
+                successCallback(position);
+              };
+              return originalWatchPosition.call(navigator.geolocation, secureSuccess, errorCallback, options);
+            },
+            writable: false,
+            configurable: false
+          });
+
+          // Log Geolocation security status
+          console.log("🛡️ Geolocation security lockdown initialized.");
+        } catch (e) {
+          console.warn("🛡️ Geolocation security lockdown failed to initialize:", e);
+        }
+      }
+    })();
+  </script>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="VisionGate - Attendance Management System for educational institutions">
+  
+  <!-- Viewport for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#673AB7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="VisionGate">
+  
+  <!-- Prevent pull-to-refresh, overscroll reload, and tap highlight on mobile -->
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body, :root, flt-glasspane, flt-scene-host, canvas {
+      overflow-x: hidden;
+      overscroll-behavior: none !important;
+      overscroll-behavior-y: none !important;
+      overscroll-behavior-x: none !important;
+      touch-action: pan-x pan-y;
+    }
+  </style>
+
+  <script>
+    // Prevent mobile browser native pull-to-refresh reload when dragging top status/notification bar
+    (function() {
+      let touchStartY = 0;
+      window.addEventListener('touchstart', function(e) {
+        if (e.touches && e.touches.length === 1) {
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', function(e) {
+        if (e.touches && e.touches.length === 1) {
+          const touchY = e.touches[0].clientY;
+          const touchYDiff = touchY - touchStartY;
+          // Intercept downward drag near top of screen (status bar / notification shade area) when scroll is at top
+          if ((window.scrollY <= 5 || document.documentElement.scrollTop <= 5) && touchStartY <= 120 && touchYDiff > 0) {
+            if (e.cancelable) {
+              e.preventDefault();
+            }
+          }
+        }
+      }, { passive: false });
+    })();
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <title>VisionGate - Attendance Management</title>
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Preconnect to common origins for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Preload main assets -->
+  <link rel="preload" href="flutter_bootstrap.js" as="script">
+  
+  <!-- Inline critical CSS for faster first paint -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #673AB7 0%, #9575CD 100%);
+    }
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    .loading-text {
+      color: white;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading indicator shown before Flutter loads -->
+  <div class="loading" id="loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading VisionGate...</div>
+  </div>
+  
+  <script>
+    // Hide loading indicator when Flutter is ready
+    function hideLoader() {
+      const loader = document.getElementById('loading');
+      if (loader) {
+        loader.style.display = 'none';
+        console.log("🛡️ Loader hidden.");
+      }
+    }
+    window.addEventListener('flutter-initialized', hideLoader);
+    window.addEventListener('flutter-first-frame', hideLoader);
+    
+    // Safety fallback: Hide loader after 8 seconds no matter what
+    setTimeout(hideLoader, 8000);
+  </script>
+  
+  <script src="flutter_bootstrap.js" defer></script>
+</body>
+</html>

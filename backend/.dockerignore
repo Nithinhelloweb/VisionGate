@@ -1,0 +1,33 @@
+# Git & Development
+.git
+.gitignore
+.venv
+venv
+env
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.ruff_cache
+.idea
+.vscode
+
+# Local SQLite databases (PostgreSQL is used in Docker)
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Runtime logs and cache dumps
+*.log
+sync.log
+debug_images/*
+!debug_images/.gitkeep
+
+# Transient test outputs
+scratch/
+graphify-out/
+tests/__pycache__

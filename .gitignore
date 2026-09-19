@@ -1,0 +1,43 @@
+# Environment Variables (Secrets)
+.env
+!.env.example
+
+# Python virtual environments & bytecode
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Databases & local state
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Application logs & debug dumps
+*.log
+sync.log
+debug_images/*
+!debug_images/.gitkeep
+backups/*.sql.gz
+
+# Flutter / Dart build artifacts
+siet_sync/build/
+siet_sync/.dart_tool/
+siet_sync/.flutter-plugins
+siet_sync/.flutter-plugins-dependencies
+
+# IDEs & OS metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+.kilo/
+scratch/
+graphify-out/

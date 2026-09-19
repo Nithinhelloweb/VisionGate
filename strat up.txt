@@ -1,0 +1,47 @@
+flutter build apk --release --split-per-abi
+
+
+.\start.ps1
+
+(alt)
+docker compose --profile tunnel up -d
+
+# Stream all container logs simultaneously in real time
+.\logs.ps1
+
+# Stream only Backend API & Face Recognition logs
+.\logs.ps1 backend
+
+# Stream only Cloudflare Tunnel logs
+.\logs.ps1 tunnel
+
+# Stream only PostgreSQL Database logs
+.\logs.ps1 postgres
+
+# Stream only Nginx Reverse Proxy logs
+.\logs.ps1 nginx
+
+# View the last 50 lines without continuous streaming
+.\logs.ps1 backend -Lines 50 -NoFollow
+
+(alt)
+# Stream all logs together
+docker compose logs -f
+
+# Tail a specific container in real time
+docker logs -f attenda-backend
+docker logs -f attenda-cloudflared
+docker logs -f attenda-postgres
+docker logs -f attenda-nginx
+
+# View the last 50 lines of any container
+docker logs --tail 50 attenda-backend
+
+# 1. Start the entire stack with automatic GPU detection & Cloudflare Tunnel
+.\start.ps1
+
+# 2. View live backend & GPU face recognition logs
+.\logs.ps1 backend
+
+# 3. Verify all 12 system smoke tests (100% green)
+.\scripts\test.ps1

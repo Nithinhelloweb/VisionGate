@@ -1,0 +1,7 @@
+tunnel: 27b90fd6-f11b-4f35-b160-47bcc2e2ed9e
+credentials-file: /etc/cloudflared/credentials.json
+
+ingress:
+  - hostname: attenda.srishakthicgpa.in
+    service: http://nginx:80
+  - service: http_status:404
