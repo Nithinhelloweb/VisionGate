@@ -1445,3 +1445,5 @@ def _send_requester_outcome_email(
 # Leave balance calculator
 
 # Leave overlap detection
+
+# Leave utilisation report generator
