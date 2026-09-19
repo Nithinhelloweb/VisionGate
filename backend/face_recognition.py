@@ -467,3 +467,5 @@ def _get_candidates(reg_no: str):
 # Frame blur detection
 
 # Facial landmark alignment before encoding
+
+# GPU/CPU device selection at init
